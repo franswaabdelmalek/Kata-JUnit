@@ -37,4 +37,4 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
           echo checking maven installation
-          mvn --help
+          mvn --version
