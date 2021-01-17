@@ -17,8 +17,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  analyze:
-    name: Analyze
+  analyze_and_build:
+    name: Analyze and build project
     runs-on: ubuntu-latest
 
     strategy:
@@ -61,26 +61,13 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
-      
-  # This workflow contains security scanning and build jobs
-  build:
-    # run if Analyze jobs is completed successfully
-    needs: Analyze
-    
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    # Runs a single command using the runners shell
+    #- name: Run a one-line script
+    #  run: echo Hello, world!
 
-      # Runs a single command using the runners shell
-      #- name: Run a one-line script
-      #  run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Clean, compile and test the project
-        run: |
-          echo Clean Test run
-          mvn clean compile test
+    # Runs a set of commands using the runners shell
+    - name: Clean, compile and test the project
+      run: |
+        echo Clean Test run
+        mvn clean compile test
