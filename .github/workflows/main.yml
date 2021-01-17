@@ -17,8 +17,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  analyze_and_build:
-    name: Analyze and build project
+  analyze:
+    name: Analyze
     runs-on: ubuntu-latest
 
     strategy:
@@ -61,6 +61,11 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+  
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: analyze
 
     # Runs a single command using the runners shell
     #- name: Run a one-line script
@@ -70,4 +75,4 @@ jobs:
     - name: Clean, compile and test the project
       run: |
         echo Clean Test run
-        mvn clean compile test
+        mvn clean test
